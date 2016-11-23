@@ -11,3 +11,10 @@ two:
   description: MyText
   image_url: MyString
   price: 9.99
+
+ruby:
+  title: Programming Ruby
+  description:
+    Ruby on Rails is just so slow!
+  image_url: ruby.png
+  price: 49.50

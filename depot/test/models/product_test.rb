@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
   fixtures :product
-  test "product attributes must not be empty" do
+  test 'product attributes must not be empty' do
     product = Product.new
     assert product.invalid?
     assert product.errors[:title].any?
@@ -11,23 +11,40 @@ class ProductTest < ActiveSupport::TestCase
     assert product.errors[:image_url].any?
   end
 
-  test "product price must be positive" do
-    product = Product.new(title: "My Book Title",
-                          description: "yyy",
-                          image_url: "zzz.jpg")
+  test 'product price must be positive' do
+    product = Product.new(title: 'My Book Title',
+                          description: 'yyy',
+                          image_url: 'zzz.jpg')
     product.price = -1
     assert product.invalid?
-    assert_equal ["must be greater than or equal to 0.01"],
+    assert_equal ['must be greater than or equal to 0.01'],
                  product.errors[:price]
 
     product.price = 0
     assert product.invalid?
-    assert_equal ["must be greater than or equal to 0.01"],
+    assert_equal ['must be greater than or equal to 0.01'],
                  product.errors[:price]
 
-    product.price= 1
+    product.price = 1
     assert product.valid?
   end
 
+  test 'product is not valid without a unique title' do
+    product = Product.new(title: products(:ruby).title,
+                          description: 'yyy',
+                          price: 1,
+                          image_url: 'fred.gif')
+    assert product.invalid?
+    assert_equal ['hash already been taken'], product.errors[:title]
+  end
 
+  test 'product is not valid without a unique title - i18n' do
+    product = Product.new(title: products(:ruby).title,
+                          description: 'yyy',
+                          price: 1,
+                          image_url: 'fred.gif')
+    assert product.invalid?
+    assert_equal [I18n.translate('errors.messages.taken')],
+                 product.errors[:title]
+  end
 end

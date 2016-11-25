@@ -10,7 +10,8 @@ Things you may want to cover:
 * System dependencies
 ```
 rails         5.0.0.1
-sqlite3
+sqlite3       3.15.1
+# The newest version is required, since there is a bug in ruby-sqlite3
 puma          3.0
 sass-rails    5.0
 uglifier      1.3.0

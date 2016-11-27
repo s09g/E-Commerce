@@ -11,7 +11,7 @@
   <body class="<%= controller.controller_name %>">
     <div id="banner">
       <%= image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf' %>
-      <span class="title"><%= page_title %></span>
+      <span class="title"><%= @page_title %></span>
     </div>
 
     <div id="columns">
@@ -23,9 +23,10 @@
           <li><a href="contact">Contact</a></li>
         </ul>
       </div>
+      <div id="main">
+        <%= yield %>
+      </div>
     </div>
-    <div id="main">
-      <%= yield %>
-    </div>
+
   </body>
 </html>
